@@ -23,33 +23,29 @@ public class DataLoader implements CommandLineRunner {
 		Owner o1 = new Owner();
 		o1.setFname("Utsav");
 		o1.setLname("Bansal");
-		o1.setId(10L);
 		ownerService.save(o1);
 
-		System.out.println("Created" + ownerService.findById(10L));
+//		System.out.println("Created" + ownerService.findById(10L));
 
 		Owner o2 = new Owner();
 		o2.setFname("Yuvi");
 		o2.setLname("Vivi");
-		o2.setId(14L);
 		ownerService.save(o2);
 
-		System.out.println("Created" + ownerService.findById(14L));
+//		System.out.println("Created" + ownerService.findById(14L));
 
 		Vet v1= new Vet();
 		v1.setFname("Rabish");
 		v1.setLname("Chaudhury");
-		v1.setId(7L);
 		vetService.save(v1);
 
-		System.out.println("Created" + vetService.findById(7L));
+//		System.out.println("Created" + vetService.findById(7L));
 
 		Vet v2= new Vet();
 		v2.setFname("Rubi");
 		v2.setLname("Chuby");
-		v2.setId(17L);
 		vetService.save(v2);
 
-		System.out.println("Created" + vetService.findById(17L));
+//		System.out.println("Created" + vetService.findById(17L));
 	}
 }

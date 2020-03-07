@@ -3,9 +3,19 @@ package chela.springframework.sfgpetclinic.model;
 import java.time.LocalDate;
 
 public class Pet extends BaseEntity{
+
+	private String petName;
 	private LocalDate birthDate;
 	private PetType petType;
 	private Owner owner;
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
 
 	public LocalDate getBirthDate() {
 		return birthDate;

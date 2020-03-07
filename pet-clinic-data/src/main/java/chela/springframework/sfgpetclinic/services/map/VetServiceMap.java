@@ -2,12 +2,19 @@ package chela.springframework.sfgpetclinic.services.map;
 
 import chela.springframework.sfgpetclinic.model.Vet;
 import chela.springframework.sfgpetclinic.services.VetService;
+import chela.springframework.sfgpetclinic.services.VetSpecialityService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+
+	private final VetSpecialityService vetSpecialityService;
+
+	public VetServiceMap(VetSpecialityService vetSpecialityService) {
+		this.vetSpecialityService = vetSpecialityService;
+	}
 
 	@Override
 	public Set<Vet> findAll() {
@@ -21,6 +28,18 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
 
 	@Override
 	public Vet save(Vet vet) {
+		if(vet != null){
+			if(vet.getVetSpecialities() != null) {
+				vet.getVetSpecialities().forEach(vetSpeciality -> {
+					if (vetSpeciality.getId() == null) {
+						vetSpeciality.setId(vetSpecialityService.save(vetSpeciality).getId());
+					}
+				});
+			}
+			if( vet.getVetSpecialities() ==null){
+				throw new RuntimeException("Vet has to have a speciality");
+			}
+		}
 		return super.save(vet);
 	}
 

@@ -1,9 +1,6 @@
 package chela.springframework.sfgpetclinic.bootstrap;
 
-import chela.springframework.sfgpetclinic.model.Owner;
-import chela.springframework.sfgpetclinic.model.Pet;
-import chela.springframework.sfgpetclinic.model.PetType;
-import chela.springframework.sfgpetclinic.model.Vet;
+import chela.springframework.sfgpetclinic.model.*;
 import chela.springframework.sfgpetclinic.services.OwnerService;
 import chela.springframework.sfgpetclinic.services.PetTypeService;
 import chela.springframework.sfgpetclinic.services.VetService;
@@ -27,6 +24,19 @@ public class DataLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		loadData();
+	}
+
+	private void loadData() {
+		VetSpeciality vs1 = new VetSpeciality();
+		vs1.setDescription("Radiology");
+
+		VetSpeciality vs2 = new VetSpeciality();
+		vs2.setDescription("Surgery");
+
+		VetSpeciality vs3 = new VetSpeciality();
+		vs3.setDescription("Dentistry");
 
 		PetType dog = new PetType();
 		dog.setName("Dog");
@@ -75,6 +85,7 @@ public class DataLoader implements CommandLineRunner {
 		Vet v1= new Vet();
 		v1.setFname("Rabish");
 		v1.setLname("Chaudhury");
+		v1.getVetSpecialities().add(vs1);
 		vetService.save(v1);
 
 //		System.out.println("Created" + vetService.findById(7L));
@@ -82,8 +93,15 @@ public class DataLoader implements CommandLineRunner {
 		Vet v2= new Vet();
 		v2.setFname("Rubi");
 		v2.setLname("Chuby");
+		v2.getVetSpecialities().add(vs2);
 		vetService.save(v2);
 
 //		System.out.println("Created" + vetService.findById(17L));
+
+		Vet v3= new Vet();
+		v3.setFname("Chami");
+		v3.setLname("Loko");
+		v3.getVetSpecialities().add(vs3);
+		vetService.save(v3);
 	}
 }

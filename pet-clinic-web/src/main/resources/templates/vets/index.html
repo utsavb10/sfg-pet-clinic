@@ -18,9 +18,9 @@
     <tbody>
     <tr th:each="vet : ${vets}">
         <td th:text="${vet.fname + ' ' + vet.lname}"></td>
-        <td><span th:each="specialty : ${vet.specialities}"
-                  th:text="${specialty.description + ' '}" /> <span
-                th:if="${vet?.specialities?.size() == 0}">none</span></td>
+        <td><span th:each="speciality : ${vet.vetSpecialities}"
+                  th:text="${speciality.description + ' '}" /> <span
+                th:if="${vet?.vetSpecialities?.size() == 0}">none</span></td>
     </tr>
     </tbody>
 </table>

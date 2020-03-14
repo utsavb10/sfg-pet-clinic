@@ -1,12 +1,29 @@
 package chela.springframework.sfgpetclinic.model;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
+
+	@Builder
+	public Owner(Long id, String fname, String lname, Set<Pet> pets, String address, String city, String phone) {
+		super(id, fname, lname);
+		this.pets = pets;
+		this.address = address;
+		this.city = city;
+		this.phone = phone;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Pet> pets = new HashSet<>();
@@ -20,35 +37,4 @@ public class Owner extends Person {
 	@Column(name = "phone")
 	private String phone;
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public Set<Pet> getPets() {
-		return pets;
-	}
-
-	public void setPets(Set<Pet> pets) {
-		this.pets = pets;
-	}
 }

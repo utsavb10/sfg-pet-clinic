@@ -4,6 +4,7 @@ import chela.springframework.sfgpetclinic.model.*;
 import chela.springframework.sfgpetclinic.services.OwnerService;
 import chela.springframework.sfgpetclinic.services.PetTypeService;
 import chela.springframework.sfgpetclinic.services.VetService;
+import chela.springframework.sfgpetclinic.services.VisitService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +16,13 @@ public class DataLoader implements CommandLineRunner {
 	private final OwnerService ownerService;
 	private final VetService vetService;
 	private final PetTypeService petTypeService;
+	private final VisitService visitService;
 
-	public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+	public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, VisitService visitService) {
 		this.ownerService = ownerService;
 		this.vetService = vetService;
 		this.petTypeService = petTypeService;
+		this.visitService = visitService;
 	}
 
 	@Override
@@ -103,5 +106,17 @@ public class DataLoader implements CommandLineRunner {
 		v3.setLname("Loko");
 		v3.getVetSpecialities().add(vs3);
 		vetService.save(v3);
+
+		Visit visit = new Visit();
+		visit.setDate(LocalDate.now());
+		visit.setDescription("Regular Checkup");
+		visit.setPet(p1);
+		visitService.save(visit);
+
+		Visit visit2 = new Visit();
+		visit2.setDate(LocalDate.now());
+		visit2.setDescription("Regular Checkup");
+		visit2.setPet(p1);
+		visitService.save(visit2);
 	}
 }

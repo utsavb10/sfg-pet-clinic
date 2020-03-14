@@ -1,10 +1,7 @@
 package chela.springframework.sfgpetclinic.bootstrap;
 
 import chela.springframework.sfgpetclinic.model.*;
-import chela.springframework.sfgpetclinic.services.OwnerService;
-import chela.springframework.sfgpetclinic.services.PetTypeService;
-import chela.springframework.sfgpetclinic.services.VetService;
-import chela.springframework.sfgpetclinic.services.VisitService;
+import chela.springframework.sfgpetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +12,18 @@ public class DataLoader implements CommandLineRunner {
 
 	private final OwnerService ownerService;
 	private final VetService vetService;
+	private final PetService petService;
 	private final PetTypeService petTypeService;
 	private final VisitService visitService;
+	private final VetSpecialityService vetSpecialityService;
 
-	public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, VisitService visitService) {
+	public DataLoader(OwnerService ownerService, VetService vetService, PetService petService, PetTypeService petTypeService, VisitService visitService, VetSpecialityService vetSpecialityService) {
 		this.ownerService = ownerService;
 		this.vetService = vetService;
+		this.petService = petService;
 		this.petTypeService = petTypeService;
 		this.visitService = visitService;
+		this.vetSpecialityService = vetSpecialityService;
 	}
 
 	@Override
@@ -34,12 +35,15 @@ public class DataLoader implements CommandLineRunner {
 	private void loadData() {
 		VetSpeciality vs1 = new VetSpeciality();
 		vs1.setDescription("Radiology");
+		vetSpecialityService.save(vs1);
 
 		VetSpeciality vs2 = new VetSpeciality();
 		vs2.setDescription("Surgery");
+		vetSpecialityService.save(vs2);
 
 		VetSpeciality vs3 = new VetSpeciality();
 		vs3.setDescription("Dentistry");
+		vetSpecialityService.save(vs3);
 
 		PetType dog = new PetType();
 		dog.setName("Dog");
@@ -59,29 +63,31 @@ public class DataLoader implements CommandLineRunner {
 		o1.setAddress("adr1");
 		o1.setCity("Rohtak");
 		o1.setPhone("423432423");
+		ownerService.save(o1);
 
 		Pet p1 = new Pet();
 		p1.setPetType(dog);
 		p1.setPetName("Doggo");
 		p1.setBirthDate(LocalDate.now());
 		p1.setOwner(o1);
+		petService.save(p1);
 
-		o1.getPets().add(p1);
-		ownerService.save(o1);
+//		o1.getPets().add(p1);
 //		System.out.println("Created" + ownerService.findById(10L));
 
 		Owner o2 = new Owner();
 		o2.setFname("Yuvi");
 		o2.setLname("Vivi");
+		ownerService.save(o2);
 
 		Pet p2 = new Pet();
 		p2.setPetType(cat);
 		p2.setPetName("Catto");
 		p2.setBirthDate(LocalDate.now());
 		p2.setOwner(o2);
+		petService.save(p2);
 
-		o2.getPets().add(p2);
-		ownerService.save(o2);
+//		o2.getPets().add(p2);
 
 //		System.out.println("Created" + ownerService.findById(14L));
 
@@ -116,7 +122,7 @@ public class DataLoader implements CommandLineRunner {
 		Visit visit2 = new Visit();
 		visit2.setDate(LocalDate.now());
 		visit2.setDescription("Regular Checkup");
-		visit2.setPet(p1);
+		visit2.setPet(p2);
 		visitService.save(visit2);
 	}
 }

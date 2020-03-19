@@ -1,22 +1,28 @@
 package chela.springframework.sfgpetclinic.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+@Getter
+@Setter
+@NoArgsConstructor
 public class Person extends BaseEntity{
-	private String fname;
-	private String lname;
 
-	public String getFname() {
-		return fname;
-	}
-
-	public void setFname(String fname) {
+	public Person(Long id, String fname, String lname) {
+		super(id);
 		this.fname = fname;
-	}
-
-	public String getLname() {
-		return lname;
-	}
-
-	public void setLname(String lname) {
 		this.lname = lname;
 	}
+
+	@Column(name = "first_name")
+	private String fname;
+
+	@Column(name= "last_name")
+	private String lname;
+
 }
